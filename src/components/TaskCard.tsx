@@ -1,17 +1,11 @@
-import { useState } from 'react';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { formatDate, parseTaskParams, truncateText } from '@/lib/utils';
-import { Task } from '@/types';
-import { TaskApprovalDialog } from '@/components/TaskApprovalDialog';
-import { Badge } from '@/components/ui/badge';
-import { CalendarDays, User, Building, FileText } from 'lucide-react';
+import { useState } from "react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { formatDate, parseTaskParams, truncateText } from "@/lib/utils";
+import { Task } from "@/types";
+import { TaskApprovalDialog } from "@/components/TaskApprovalDialog";
+import { Badge } from "@/components/ui/badge";
+import { CalendarDays, User, Building, FileText } from "lucide-react";
 
 interface TaskCardProps {
   task: Task;
@@ -24,34 +18,30 @@ export function TaskCard({ task, onActionComplete }: TaskCardProps) {
 
   const openApprovalDialog = () => setApprovalDialogOpen(true);
   const closeApprovalDialog = () => setApprovalDialogOpen(false);
-
+  
   const openRejectDialog = () => setRejectDialogOpen(true);
   const closeRejectDialog = () => setRejectDialogOpen(false);
 
   const params = parseTaskParams(task.params);
-  const workerInfo = params?.find(
-    (section: any) => section.Name === 'worker_information'
-  );
+  const workerInfo = params?.find((section: any) => section.Name === "worker_information");
   const workerAttributes = workerInfo?.Attributes || [];
-
+  
   const getAttributeValue = (name: string) => {
     const attribute = workerAttributes.find((attr: any) => attr.Name === name);
-    return attribute?.Value || 'N/A';
+    return attribute?.Value || "N/A";
   };
 
-  const fullNameEn = getAttributeValue('full_name_en');
-  const passportNumber = getAttributeValue('passport_number');
-  const establishmentId = getAttributeValue('establishment_id');
-  const profession = getAttributeValue('profession_id');
+  const fullNameEn = getAttributeValue("full_name_en");
+  const passportNumber = getAttributeValue("passport_number");
+  const establishmentId = getAttributeValue("establishment_id");
+  const profession = getAttributeValue("profession_id");
 
   return (
     <Card className="w-full border-l-4 border-l-primary-200 shadow-sm hover:shadow-md transition-shadow duration-200">
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <CardTitle className="text-lg font-semibold">
-            <span className="text-primary-300">
-              {truncateText(fullNameEn, 30)}
-            </span>
+            <span className="text-primary-300">{truncateText(fullNameEn, 30)}</span>
           </CardTitle>
           <Badge variant="outline" className="bg-accent-100/20">
             {task.transaction_id}

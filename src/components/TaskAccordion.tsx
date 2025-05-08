@@ -27,12 +27,15 @@ export function TaskAccordion() {
   };
 
   const handleTaskAction = async (currentStatusId: number, isApproved: boolean) => {
+    // Find the index of the current status
     const currentIndex = TASK_STATUSES.findIndex(status => status.id === currentStatusId);
     
     if (isApproved && currentIndex < TASK_STATUSES.length - 1) {
+      // Open the next accordion
       const nextAccordionValue = `item-${currentIndex + 1}`;
       setOpenItems(prev => [...prev, nextAccordionValue]);
       
+      // Show success toast
       toast.success('Task approved successfully! Moving to next stage.', {
         position: "top-right",
         autoClose: 3000,
@@ -42,6 +45,7 @@ export function TaskAccordion() {
         draggable: true,
       });
     } else if (!isApproved) {
+      // Show rejection toast
       toast.info('Task rejected. Status unchanged.', {
         position: "top-right",
         autoClose: 3000,
